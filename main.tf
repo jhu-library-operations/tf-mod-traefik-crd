@@ -15,3 +15,9 @@ resource "local_file" "resources" {
   filename = format("%s/resources.yaml", var.output_path)
   file_permission = "0600"
 }
+
+resource "local_file" "kustomize" {
+  content = file("${path.module}/templates/_kustomization.yaml")
+  filename = format("%s/kustomization.yaml", var.output_path)
+  file_permission = "0600"
+}

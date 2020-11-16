@@ -100,4 +100,4 @@ spec:
     kind: TraefikService
     plural: traefikservices
     singular: traefikservice
-  scope: Namespaced
+  scope: Namespace
