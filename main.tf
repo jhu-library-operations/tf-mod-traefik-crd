@@ -25,7 +25,7 @@ resource "local_file" "services" {
 
 resource "local_file" "deployments" {
   count = length(var.namespaces)
-  content = file("${path.module}/templates/_deployments_namespaces.yaml")
+  content = file("${path.module}/templates/_deployments_namespaced.yaml")
   filename = format("%s/%s/traefik/deployments.yaml", var.application_output_path, element(var.namespaces, count.index))
   file_permission = "0600"
 }
