@@ -30,9 +30,16 @@ resource "local_file" "deployments" {
   file_permission = "0600"
 }
 
+resource "local_file" "rbac_namespaced" {
+  count = length(var.namespaces)
+  content = file("${path.module}/templates/_rbac_namespaced.yaml")
+  filename = format("%s/%s/traefik/rbac.yaml", var.application_output_path, element(var.namespaces, count.index))
+  file_permission = "0600"
+}
+
 resource "local_file" "appkustomize" {
   count = length(var.namespaces)
-  content = templatefile("${path.module}/templates/_kustomization.yaml", { resources = [ "services.yaml", "deployments.yaml" ] })
+  content = templatefile("${path.}/templates/_kustomization.yaml", { resources = [ "services.yaml", "deployments.yaml", "rbac.yaml" ] })
   filename = format("%s/%s/traefik/kustomization.yaml", var.application_output_path, element(var.namespaces, count.index))
   file_permission = "0600"
 }
