@@ -3,7 +3,7 @@ kind: Kustomization
 
 resources:
 %{ for resource in resources ~}
-  - { resource }/
+  - ${ resource }/
 %{ endfor }
 
 
